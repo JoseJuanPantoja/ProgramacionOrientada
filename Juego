@@ -1,0 +1,923 @@
+int pantalla = 0;
+PGraphics fondo1;
+PGraphics fondo2;
+PGraphics fondo3;
+PGraphics texto;
+float direccionY = 0.5;
+int direccion = 3;
+float posY = 330;
+int posX = 0;
+int movimiento = 0;
+PGraphics morrito;
+PGraphics morrita;
+PGraphics don;
+PGraphics morra;
+PGraphics abuelo;
+PImage titulo;
+int rival;
+PGraphics triangulo;
+
+void setup() {
+
+  size (1000, 500);
+
+  titulo = loadImage("title.png");
+  triangulo = createGraphics(15, 15);
+  texto = createGraphics(415, 305);
+  fondo1 = createGraphics(1000, 500);
+  fondo2 = createGraphics(1000, 500);
+  fondo3 = createGraphics(1000, 500);
+  morrito = createGraphics(30, 70);
+  morrita = createGraphics(30, 75);
+  morra = createGraphics(30, 95);
+  don = createGraphics(30, 95);
+  abuelo = createGraphics(50, 75);
+}
+
+
+void draw() {
+
+  fondo1();
+  fondo2();
+  morrito();
+  morrita();
+  don();
+  morra();
+  abuelo();
+
+  if (key == 'a' || key == 'A' ) {
+    pantalla = 7;
+  }
+
+  if (key == 's' || key == 'S' ) {
+    pantalla = 6;
+  }
+
+  if (key == 'r' || key == 'R' ) {
+    pantalla = 0;
+  }
+
+  if (key == '1' ) {
+    pantalla = 1;
+  }
+  if (key == '2') {
+    pantalla = 2;
+  }
+  if (key == '3' ) {
+    pantalla = 3;
+  }
+  if (key == '4' ) {
+    pantalla = 4;
+  }
+  if (key == '5') {
+    pantalla = 5;
+  }
+
+  switch(pantalla) {
+  case 0: //Inicio
+    inicio();
+    mueven();
+    break;
+
+  case 1:
+    juegoMorra();
+    comenzar();
+    break;
+
+  case 2:
+    juegoDon();
+    comenzar();
+    break;
+
+  case 3:
+    juegoMorrita();
+    comenzar();
+    break;
+
+  case 4:
+    juegoMorrito();
+    comenzar();
+    break;
+
+  case 5:
+    juegoAbuelo();
+    comenzar();
+    break;
+
+  case 6: //Seleccion
+    seleccion();
+    PSeleccion();
+    break;
+
+  case 7: //Seleccion
+    instrucciones();
+    break;
+  }
+
+  if (key == 'f' || key == 'F' ) {
+
+    noLoop();
+    rival += random(1, 5);
+  }
+
+  switch(rival) {
+  case 1:
+    juegoMorraRival();
+    resMorra();
+    if (pantalla == 1) {
+      textSize(50);
+      fill(255);
+      text("Creaste una paradoja", 240, 160); 
+
+      textSize(40);
+      text("al intentar clonar una persona", 210, 200); 
+      fill(255);
+    }
+    break;
+
+  case 2:
+    juegoMorritaRival();
+    resMorrita();
+    if (pantalla == 3) {
+      textSize(50);
+      fill(255);
+      text("Creaste una paradoja", 240, 160); 
+
+      textSize(40);
+      text("al intentar clonar una persona", 210, 200); 
+      fill(255);
+    }
+    break;
+
+  case 3:
+    juegoMorritoRival();
+    resMorrito();
+    if (pantalla == 4) {
+      textSize(50);
+      fill(255);
+      text("Creaste una paradoja", 240, 160); 
+
+      textSize(40);
+      text("al intentar clonar una persona", 210, 200); 
+      fill(255);
+    }
+    break;
+
+  case 4:
+    juegoDonRival();
+    resDon();
+    if (pantalla == 2) {
+      textSize(50);
+      fill(255);
+      text("Creaste una paradoja", 240, 160); 
+
+      textSize(40);
+      text("al intentar clonar una persona", 210, 200); 
+      fill(255);
+    }
+    break;
+
+  case 5:
+    juegoAbueloRival();
+    resAbuelo();
+    if (pantalla == 5) {
+      textSize(50);
+      fill(255);
+      text("Creaste una paradoja", 240, 160); 
+
+      textSize(40);
+      text("al intentar clonar una persona", 210, 200); 
+      fill(255);
+    }
+    break;
+  }
+}
+
+
+
+
+
+
+//************************************************************************************************************************************************************************************************************************************************************************************************************
+
+
+void comenzar() {
+  fill(255);
+  textSize(50);
+  text("Presiona F, para pelear", 230, 480);
+}
+
+
+
+void resMorra() {
+  if (pantalla == 2 || pantalla == 5) {
+
+    textSize(80);
+    text("Ganaste", 335, 120); 
+    fill(#FFEAEB);
+  } else {
+    textSize(80);
+    text("Perdiste", 335, 120); 
+    fill(#FFEAEB);
+  }
+}
+
+void resDon() {
+  if (pantalla == 3 || pantalla == 4) {
+
+    textSize(80);
+    text("Ganaste", 335, 120); 
+    fill(#FFEAEB);
+  } else {
+    textSize(80);
+    text("Perdiste", 335, 120); 
+    fill(#FFEAEB);
+  }
+}
+
+void resMorrita() {
+  if (pantalla == 1 || pantalla == 4) {
+
+    textSize(80);
+    text("Ganaste", 335, 120); 
+    fill(#FFEAEB);
+  } else {
+    textSize(80);
+    text("Perdiste", 335, 120); 
+    fill(#FFEAEB);
+  }
+}
+
+void resMorrito() {
+  if (pantalla == 1 || pantalla == 5) {
+
+    textSize(80);
+    text("Ganaste", 335, 120); 
+    fill(#FFEAEB);
+  } else {
+    textSize(80);
+    text("Perdiste", 335, 120); 
+    fill(#FFEAEB);
+  }
+}
+
+void resAbuelo() {
+  if (pantalla == 3 || pantalla == 5) {
+
+    textSize(80);
+    text("Ganaste", 335, 120); 
+    fill(#FFEAEB);
+  } else {
+    textSize(80);
+    text("Perdiste", 335, 120); 
+    fill(#FFEAEB);
+  }
+}
+
+
+
+
+
+
+void juegoMorraRival() {
+  image(morra, posX + 700, posY);
+}
+
+void juegoMorritaRival() {
+  image(morrita, posX + 700, posY+25);
+}
+
+void juegoMorritoRival() {
+  image(morrito, posX + 700, posY+25);
+}
+
+void juegoDonRival() {
+  image(don, posX + 700, posY);
+}
+
+void juegoAbueloRival() {
+  image(abuelo, posX + 700, posY+20);
+}
+
+
+void juegoMorra() {
+  image(fondo2, 0, 0);
+  image(morra, posX + 250, posY);
+}
+
+void juegoDon() {
+  image(fondo2, 0, 0);
+  image(don, posX + 250, posY);
+}
+
+void juegoMorrita() {
+  image(fondo2, 0, 0);
+  image(morrita, posX + 250, posY+20);
+}
+void juegoMorrito() {
+  image(fondo2, 0, 0);
+  image(morrito, posX + 250, posY+25);
+}
+void juegoAbuelo() {
+  image(fondo2, 0, 0);
+  image(abuelo, posX + 250, posY+20);
+}
+
+
+void seleccion() {
+  textSize(50);
+  text("Selecciona tu personaje ;)", 180, 80); 
+  fill(#FFEAEB);
+
+  textSize(50);
+  text("1", posX + 250, posY - 25); 
+  fill(#FFEAEB);
+
+  textSize(50);
+  text("2", posX + 350, posY - 25); 
+  fill(#FFEAEB);
+
+  textSize(50);
+  text("3", posX + 450, posY - 25); 
+  fill(#FFEAEB);
+
+  textSize(50);
+  text("4", posX + 550, posY - 25); 
+  fill(#FFEAEB);
+
+  textSize(50);
+  text("5", posX + 650, posY - 25); 
+  fill(#FFEAEB);
+}
+
+void PSeleccion() {
+  image(fondo2, 0, 0);
+  seleccion();
+  posY = 330;
+  posX = 0;
+  image(morra, posX + 250, posY);
+  image(don, posX + 350, posY);
+  image(morrita, posX + 450, posY + 20);
+  image(morrito, posX + 550, posY + 25);
+  image(abuelo, posX + 650, posY + 20);
+}
+
+
+void instrucciones() {
+  triangulo();
+  texto();
+
+
+  image(fondo1, 0, 0);
+
+
+
+  lineas();
+  fill(#0299A0);
+  textSize(50);
+  text("Presiona S, si estas Ready :v", 160, 470);
+  stroke(2);
+  image(triangulo, 460, 235);
+  image(triangulo, 60, 235);
+  image(triangulo, 170, 300);
+  image(triangulo, 185, 355);
+  image(triangulo, 365, 328);
+  image(triangulo, 355, 338);
+  image(triangulo, 425, 198);
+  image(triangulo, 98, 185);
+  image(triangulo, 240, 70);
+  image(triangulo, 280, 70);
+
+  fill(#CDAAFF);
+  textSize(50);
+  text("Fáciles Instrucciones", 475, 60); 
+
+
+  image(texto, 540, 75);
+}
+
+
+void texto() {
+  texto.beginDraw();
+  texto.fill(#FFAAAA);
+  texto.noStroke();
+  texto.textSize(30);
+  texto.text("La mamá vence a la Niña,", 0, 30); 
+  texto.textSize(30);
+  texto.text("La Niña derrota al Papá,", 10, 60); 
+  texto.textSize(30);
+  texto.text("el Papá le gana a la Mamá,", 0, 90); 
+  texto.textSize(30);
+  texto.text("la Mamá vence al niño,", 18, 120); 
+  texto.textSize(30);
+  texto.text("el Niño, gana a la Niña,", 15, 150); 
+  texto.textSize(30);
+  texto.text("la Niña derrtota al Abuelo,", 0, 180); 
+  texto.textSize(30);
+  texto.text("el Abuelo gana al Niño,", 16, 210); 
+  texto.textSize(30);
+  texto.text("el Niño vence al Papá,", 25, 240); 
+  texto.textSize(30);
+  texto.text("el Papá le gana al Abuelo", 5, 270); 
+  texto.textSize(30);
+  texto.text("el Abuelo vence a la Mamá", 0, 300); 
+  texto.endDraw();
+}
+
+void triangulo() {
+  triangulo.beginDraw();
+  triangulo.fill(0);
+  triangulo.triangle(10, 10, 0, 10, 5, 0);
+  triangulo.endDraw();
+}
+
+
+void lineas() {
+  line(275, 120, 370, 340);
+  line(255, 120, 160, 340);
+  line(430, 190, 100, 190);
+  line(100, 200, 360, 343);
+  line(430, 200, 160, 340);
+
+  line(285, 80, 430, 180);
+  line(243, 80, 100, 180);
+  line(65, 240, 140, 340);
+  line(465, 240, 400, 340);
+  line(345, 360, 190, 360);
+
+
+  image(morra, 150, 310);
+  image(morrita, 50, 155);
+  image(morrito, 450, 160);
+  image(don, 250, 20);
+  image(abuelo, 350, 330);
+}
+
+
+void inicio() {
+
+  image(fondo1, 0, 0);
+  image(titulo, 214, 80, 572, 161);
+  fill(#0299A0);
+  textSize(50);
+  text("Presiona A, para continuar", 180, 470);
+}
+
+void mueven() {
+  posX += direccion;
+
+  if (posX>= 1435)
+  {
+    posX = 0;
+  }
+
+  posY += direccionY;
+
+  if (posY >= 315)
+  {
+    posY = 305;
+  }
+
+  image(morra, posX - 35, posY);
+  image(don, posX - 135, posY);
+  image(morrita, posX - 235, posY + 20);
+  image(morrito, posX - 335, posY + 25);
+  image(abuelo, posX - 435, posY + 20);
+}
+
+void fondo1() {
+
+  fondo1.beginDraw();
+
+  fondo1.noStroke();
+  fondo1.fill(#CEFBFF);
+  fondo1.rect(0, 0, 1000, 500);
+  fondo1.fill(#ADFFB5);
+  fondo1.rect(0, 390, 1000, 110);
+  fondo1.endDraw();
+}
+
+void fondo2() {
+  fondo2.beginDraw();
+  fondo2.noStroke();
+  fondo2.fill(#FF5858);
+  fondo2.rect(0, 0, 1000, 500);
+  fondo2.fill(#5F5F5F);
+  fondo2.rect(0, 390, 1000, 110);
+  fondo2.endDraw();
+}
+
+
+void morrito() {
+  morrito.beginDraw();
+  morrito.noStroke();
+  morrito.fill(183, 130, 25);
+  morrito.rect(10, 0, 5, 5); 
+  morrito.rect(15, 0, 5, 5); 
+  morrito.rect(20, 0, 5, 5); 
+  morrito.rect(10, 5, 5, 5);
+  morrito.rect(20, 5, 5, 5);
+  morrito.rect(5, 5, 5, 5);
+  morrito.rect(5, 10, 5, 5);
+  morrito.fill(252, 218, 153);
+  morrito.rect(20, 5, 5, 5);
+  morrito.rect(15, 5, 5, 5); 
+  morrito.rect(10, 10, 5, 5);
+  morrito.rect(15, 10, 5, 5);
+  morrito.rect(20, 10, 5, 5);
+  morrito.rect(15, 15, 5, 5); 
+  morrito.rect(10, 15, 5, 5);
+  morrito.rect(0, 30, 5, 5);
+  morrito.rect(25, 30, 5, 5);
+  morrito.rect(25, 35, 5, 5);
+  morrito.rect(0, 35, 5, 5);
+  morrito.rect(25, 40, 5, 5);
+  morrito.rect(0, 40, 5, 5);
+  morrito.fill(159, 255, 82);
+  morrito.rect(20, 20, 5, 5);
+  morrito.rect(15, 20, 5, 5);
+  morrito.rect(10, 20, 5, 5);
+  morrito.rect(5, 20, 5, 5);
+  morrito.rect(20, 25, 5, 5);
+  morrito.rect(15, 25, 5, 5);
+  morrito.rect(10, 25, 5, 5);
+  morrito.rect(5, 25, 5, 5);
+  morrito.rect(0, 25, 5, 5);
+  morrito.rect(25, 25, 5, 5);
+  morrito.rect(20, 30, 5, 5);
+  morrito.rect(15, 30, 5, 5);
+  morrito.rect(10, 30, 5, 5);
+  morrito.rect(5, 30, 5, 5);
+  morrito.rect(20, 35, 5, 5);
+  morrito.rect(15, 35, 5, 5);
+  morrito.rect(10, 35, 5, 5);
+  morrito.rect(5, 35, 5, 5);
+  morrito.fill(#91E1E8);
+  morrito.rect(10, 40, 5, 5);
+  morrito.rect(20, 40, 5, 5);
+  morrito.rect(15, 40, 5, 5);
+  morrito.rect(5, 40, 5, 5);
+  morrito.rect(20, 45, 5, 5);
+  morrito.rect(15, 45, 5, 5);
+  morrito.rect(10, 45, 5, 5);
+  morrito.rect(5, 45, 5, 5);
+  morrito.rect(5, 50, 5, 5);
+  morrito.rect(20, 50, 5, 5);
+  morrito.rect(5, 60, 5, 5);
+  morrito.rect(20, 60, 5, 5);
+  morrito.rect(5, 55, 5, 5);
+  morrito.rect(20, 55, 5, 5);
+  morrito.fill(#1C2F39);
+  morrito.rect(5, 65, 5, 5);
+  morrito.rect(25, 65, 5, 5);
+  morrito.rect(0, 65, 5, 5);
+  morrito.rect(20, 65, 5, 5);
+  morrito.endDraw();
+}
+
+void morrita() {
+  morrita.beginDraw();
+  morrita.noStroke();
+  morrita.fill(183, 130, 25);
+  morrita.rect(10, 0, 5, 5); 
+  morrita.rect(15, 0, 5, 5); 
+  morrita.rect(20, 0, 5, 5); 
+  morrita.rect(10, 5, 5, 5);
+  morrita.rect(20, 5, 5, 5);
+  morrita.rect(5, 5, 5, 5);
+  morrita.rect(25, 5, 5, 5);
+  morrita.rect(5, 10, 5, 5);
+  morrita.rect(25, 10, 5, 5);
+  morrita.rect(5, 15, 5, 5);
+  morrita.rect(25, 15, 5, 5);
+  morrita.rect(0, 15, 5, 5);
+  morrita.rect(0, 20, 5, 5);
+  morrita.rect(25, 20, 5, 5);
+  morrita.rect(20, 15, 5, 5);
+  morrita.fill(252, 218, 153);
+  morrita.rect(20, 5, 5, 5);
+  morrita.rect(15, 5, 5, 5); 
+  morrita.rect(10, 10, 5, 5);
+  morrita.rect(15, 10, 5, 5);
+  morrita.rect(20, 10, 5, 5);
+  morrita.rect(15, 15, 5, 5); 
+  morrita.rect(10, 15, 5, 5);
+  morrita.rect(0, 30, 5, 5);
+  morrita.rect(25, 30, 5, 5);
+  morrita.rect(25, 35, 5, 5);
+  morrita.rect(0, 35, 5, 5);
+  morrita.rect(25, 40, 5, 5);
+  morrita.rect(0, 40, 5, 5);
+  morrita.rect(5, 60, 5, 5);
+  morrita.rect(20, 60, 5, 5);
+  morrita.rect(5, 55, 5, 5);
+  morrita.rect(20, 55, 5, 5);
+  morrita.rect(5, 65, 5, 5);
+  morrita.rect(20, 65, 5, 5);
+  morrita.fill(#FFF1A2);
+  morrita.rect(20, 20, 5, 5);
+  morrita.rect(15, 20, 5, 5);
+  morrita.rect(10, 20, 5, 5);
+  morrita.rect(5, 20, 5, 5);
+  morrita.rect(20, 25, 5, 5);
+  morrita.rect(15, 25, 5, 5);
+  morrita.rect(10, 25, 5, 5);
+  morrita.rect(5, 25, 5, 5);
+  morrita.rect(0, 25, 5, 5);
+  morrita.rect(25, 25, 5, 5);
+  morrita.rect(20, 30, 5, 5);
+  morrita.rect(15, 30, 5, 5);
+  morrita.rect(10, 30, 5, 5);
+  morrita.rect(5, 30, 5, 5);
+  morrita.rect(20, 35, 5, 5);
+  morrita.rect(15, 35, 5, 5);
+  morrita.rect(10, 35, 5, 5);
+  morrita.rect(5, 35, 5, 5);
+  morrita.rect(20, 50, 5, 5);
+  morrita.rect(15, 50, 5, 5);
+  morrita.rect(10, 50, 5, 5);
+  morrita.rect(5, 50, 5, 5);
+  morrita.rect(20, 45, 5, 5);
+  morrita.rect(15, 45, 5, 5);
+  morrita.rect(10, 45, 5, 5);
+  morrita.rect(5, 45, 5, 5);
+  morrita.fill(#B7A53F);
+  morrita.rect(10, 40, 5, 5);
+  morrita.rect(20, 40, 5, 5);
+  morrita.rect(15, 40, 5, 5);
+  morrita.rect(5, 40, 5, 5);
+  morrita.fill(#4D520F);
+  morrita.rect(5, 70, 5, 5);
+  morrita.rect(25, 70, 5, 5);
+  morrita.rect(0, 70, 5, 5);
+  morrita.rect(20, 70, 5, 5);
+  morrita.endDraw();
+}
+
+void don() {
+  don.beginDraw();
+  don.noStroke();
+  don.fill(#866933);
+  don.rect(10, 0, 5, 5); 
+  don.rect(15, 0, 5, 5); 
+  don.rect(20, 0, 5, 5); 
+  don.rect(10, 5, 5, 5);
+  don.rect(5, 5, 5, 5);
+  don.rect(5, 10, 5, 5);
+  don.rect(5, 15, 5, 5);
+  don.fill(252, 218, 153);
+  don.rect(15, 5, 5, 5); 
+  don.rect(20, 5, 5, 5);
+  don.rect(10, 10, 5, 5);
+  don.rect(15, 10, 5, 5); 
+  don.rect(20, 10, 5, 5);
+  don.rect(10, 15, 5, 5);
+  don.rect(15, 15, 5, 5);
+  don.rect(20, 15, 5, 5);
+  don.rect(15, 20, 5, 5); 
+  don.rect(10, 20, 5, 5);
+  don.rect(25, 40, 5, 5);
+  don.rect(0, 40, 5, 5);
+  don.rect(25, 45, 5, 5);
+  don.rect(0, 45, 5, 5);
+  don.rect(25, 50, 5, 5);
+  don.rect(0, 50, 5, 5);
+  don.rect(25, 55, 5, 5);
+  don.rect(0, 55, 5, 5);
+  don.fill(#FF8185);
+  don.rect(20, 25, 5, 5);
+  don.rect(15, 25, 5, 5);
+  don.rect(10, 25, 5, 5);
+  don.rect(5, 25, 5, 5);
+  don.rect(20, 30, 5, 5);
+  don.rect(15, 30, 5, 5);
+  don.rect(10, 30, 5, 5);
+  don.rect(5, 30, 5, 5);
+  don.rect(0, 30, 5, 5);
+  don.rect(25, 30, 5, 5);
+  don.rect(25, 35, 5, 5);
+  don.rect(20, 35, 5, 5);
+  don.rect(15, 35, 5, 5);
+  don.rect(10, 35, 5, 5);
+  don.rect(5, 35, 5, 5);
+  don.rect(0, 35, 5, 5);
+  don.rect(20, 40, 5, 5);
+  don.rect(15, 40, 5, 5);
+  don.rect(10, 40, 5, 5);
+  don.rect(5, 40, 5, 5);
+  don.rect(20, 45, 5, 5);
+  don.rect(15, 45, 5, 5);
+  don.rect(10, 45, 5, 5);
+  don.rect(5, 45, 5, 5);
+  don.rect(20, 50, 5, 5);
+  don.rect(15, 50, 5, 5);
+  don.rect(10, 50, 5, 5);
+  don.rect(5, 50, 5, 5);
+  don.fill(#81D4FF);
+  don.rect(10, 55, 5, 5);
+  don.rect(20, 55, 5, 5);
+  don.rect(15, 55, 5, 5);
+  don.rect(5, 55, 5, 5);
+  don.rect(10, 60, 5, 5);
+  don.rect(20, 60, 5, 5);
+  don.rect(15, 60, 5, 5);
+  don.rect(5, 60, 5, 5);
+  don.rect(5, 65, 5, 5);
+  don.rect(20, 65, 5, 5);
+  don.rect(5, 70, 5, 5);
+  don.rect(20, 70, 5, 5);
+  don.rect(5, 75, 5, 5);
+  don.rect(20, 75, 5, 5);
+  don.rect(5, 80, 5, 5);
+  don.rect(20, 80, 5, 5);
+  don.rect(5, 85, 5, 5);
+  don.rect(20, 85, 5, 5);
+  don.fill(#1C2F39);
+  don.rect(5, 90, 5, 5);
+  don.rect(25, 90, 5, 5);
+  don.rect(0, 90, 5, 5);
+  don.rect(20, 90, 5, 5);
+  don.endDraw();
+}
+
+void morra() {
+  morra.beginDraw();
+  morra.noStroke();
+  morra.fill(183, 130, 25);
+  morra.rect(10, 0, 5, 5); 
+  morra.rect(15, 0, 5, 5); 
+  morra.rect(20, 0, 5, 5); 
+  morra.rect(10, 5, 5, 5);
+  morra.rect(5, 5, 5, 5);
+  morra.rect(25, 5, 5, 5);
+  morra.rect(5, 10, 5, 5);
+  morra.rect(25, 10, 5, 5);
+  morra.rect(5, 15, 5, 5);
+  morra.rect(25, 15, 5, 5);
+  morra.rect(0, 15, 5, 5);
+  morra.rect(5, 20, 5, 5);
+  morra.rect(0, 20, 5, 5);
+  morra.rect(20, 20, 5, 5);
+  morra.rect(25, 20, 5, 5);
+  morra.rect(0, 25, 5, 5);
+  morra.rect(25, 25, 5, 5);
+  morra.fill(252, 218, 153);
+  morra.rect(15, 5, 5, 5); 
+  morra.rect(20, 5, 5, 5);
+  morra.rect(10, 10, 5, 5);
+  morra.rect(15, 10, 5, 5); 
+  morra.rect(20, 10, 5, 5);
+  morra.rect(10, 15, 5, 5);
+  morra.rect(15, 15, 5, 5);
+  morra.rect(20, 15, 5, 5);
+  morra.rect(15, 20, 5, 5); 
+  morra.rect(10, 20, 5, 5);
+  morra.rect(25, 40, 5, 5);
+  morra.rect(0, 40, 5, 5);
+  morra.rect(25, 45, 5, 5);
+  morra.rect(0, 45, 5, 5);
+  morra.rect(25, 50, 5, 5);
+  morra.rect(0, 50, 5, 5);
+  morra.rect(25, 55, 5, 5);
+  morra.rect(0, 55, 5, 5);
+  morra.rect(5, 75, 5, 5);
+  morra.rect(20, 75, 5, 5);
+  morra.rect(5, 80, 5, 5);
+  morra.rect(20, 80, 5, 5);
+  morra.rect(5, 85, 5, 5);
+  morra.rect(20, 85, 5, 5);
+  morra.fill(159, 255, 82);
+  morra.rect(20, 25, 5, 5);
+  morra.rect(15, 25, 5, 5);
+  morra.rect(10, 25, 5, 5);
+  morra.rect(5, 25, 5, 5);
+  morra.rect(20, 30, 5, 5);
+  morra.rect(15, 30, 5, 5);
+  morra.rect(10, 30, 5, 5);
+  morra.rect(5, 30, 5, 5);
+  morra.rect(0, 30, 5, 5);
+  morra.rect(25, 30, 5, 5);
+  morra.rect(25, 35, 5, 5);
+  morra.rect(20, 35, 5, 5);
+  morra.rect(15, 35, 5, 5);
+  morra.rect(10, 35, 5, 5);
+  morra.rect(5, 35, 5, 5);
+  morra.rect(0, 35, 5, 5);
+  morra.rect(20, 40, 5, 5);
+  morra.rect(15, 40, 5, 5);
+  morra.rect(10, 40, 5, 5);
+  morra.rect(5, 40, 5, 5);
+  morra.rect(20, 45, 5, 5);
+  morra.rect(15, 45, 5, 5);
+  morra.rect(10, 45, 5, 5);
+  morra.rect(5, 45, 5, 5);
+  morra.rect(20, 50, 5, 5);
+  morra.rect(15, 50, 5, 5);
+  morra.rect(10, 50, 5, 5);
+  morra.rect(5, 50, 5, 5);
+  morra.rect(20, 60, 5, 5);
+  morra.rect(15, 60, 5, 5);
+  morra.rect(10, 60, 5, 5);
+  morra.rect(5, 60, 5, 5);
+  morra.rect(20, 65, 5, 5);
+  morra.rect(15, 65, 5, 5);
+  morra.rect(10, 65, 5, 5);
+  morra.rect(5, 65, 5, 5);
+  morra.rect(20, 70, 5, 5);
+  morra.rect(15, 70, 5, 5);
+  morra.rect(10, 70, 5, 5);
+  morra.rect(5, 70, 5, 5);
+  morra.fill(132, 211, 68);
+  morra.rect(10, 55, 5, 5);
+  morra.rect(20, 55, 5, 5);
+  morra.rect(15, 55, 5, 5);
+  morra.rect(5, 55, 5, 5);
+  morra.fill(68, 211, 131);
+  morra.rect(5, 90, 5, 5);
+  morra.rect(25, 90, 5, 5);
+  morra.rect(0, 90, 5, 5);
+  morra.rect(20, 90, 5, 5);
+  morra.endDraw ();
+}
+
+void abuelo() {
+  abuelo.beginDraw();
+  abuelo.noStroke();
+  abuelo.fill(255);
+  abuelo.rect(25, 0, 5, 5);
+  abuelo.rect(20, 5, 5, 5);
+  abuelo.rect(20, 10, 5, 5);
+  abuelo.fill(#FFEAC9);
+  abuelo.rect(30, 0, 5, 5);
+  abuelo.rect(35, 0, 5, 5);
+  abuelo.rect(30, 5, 5, 5);
+  abuelo.rect(35, 5, 5, 5);
+  abuelo.rect(25, 5, 5, 5);
+  abuelo.rect(25, 10, 5, 5);
+  abuelo.rect(30, 10, 5, 5);
+  abuelo.rect(35, 10, 5, 5);
+  abuelo.rect(25, 15, 5, 5);
+  abuelo.rect(30, 15, 5, 5);
+  abuelo.rect(20, 30, 5, 5);
+  abuelo.rect(20, 35, 5, 5);
+  abuelo.rect(20, 40, 5, 5);
+  abuelo.rect(20, 45, 5, 5);
+  abuelo.rect(35, 30, 5, 5);
+  abuelo.rect(35, 35, 5, 5);
+  abuelo.rect(40, 40, 5, 5);
+  abuelo.rect(45, 35, 5, 5);
+  abuelo.fill(#A4A3AF);
+  abuelo.rect(15, 20, 5, 5);
+  abuelo.rect(25, 20, 5, 5);
+  abuelo.rect(30, 20, 5, 5);
+  abuelo.rect(10, 25, 5, 5);
+  abuelo.rect(15, 25, 5, 5);
+  abuelo.rect(25, 25, 5, 5);
+  abuelo.rect(30, 25, 5, 5);
+  abuelo.rect(5, 30, 5, 5);
+  abuelo.rect(10, 30, 5, 5);
+  abuelo.rect(15, 30, 5, 5);
+  abuelo.rect(25, 30, 5, 5);
+  abuelo.rect(5, 35, 5, 5);
+  abuelo.rect(10, 35, 5, 5);
+  abuelo.rect(15, 35, 5, 5);
+  abuelo.rect(5, 40, 5, 5);
+  abuelo.rect(10, 40, 5, 5);
+  abuelo.rect(15, 40, 5, 5);
+  abuelo.fill(#3F3E43);
+  abuelo.rect(20, 20, 5, 5);
+  abuelo.rect(35, 20, 5, 5);
+  abuelo.rect(20, 25, 5, 5);
+  abuelo.rect(35, 25, 5, 5);
+  abuelo.fill(#80ADDB);
+  abuelo.rect(5, 45, 5, 5);
+  abuelo.rect(10, 45, 5, 5);
+  abuelo.rect(15, 45, 5, 5);
+  abuelo.rect(5, 50, 5, 5);
+  abuelo.rect(10, 50, 5, 5);
+  abuelo.rect(15, 50, 5, 5);
+  abuelo.rect(20, 50, 5, 5);
+  abuelo.rect(5, 55, 5, 5);
+  abuelo.rect(5, 60, 5, 5);
+  abuelo.rect(5, 60, 5, 5);
+  abuelo.rect(5, 65, 5, 5);
+  abuelo.rect(20, 55, 5, 5);
+  abuelo.rect(20, 60, 5, 5);
+  abuelo.rect(20, 60, 5, 5);
+  abuelo.rect(20, 65, 5, 5);
+  abuelo.fill(0);
+  abuelo.rect(5, 70, 5, 5);
+  abuelo.rect(0, 70, 5, 5);
+  abuelo.rect(20, 70, 5, 5);
+  abuelo.rect(25, 70, 5, 5);
+  abuelo.fill(#5A2B05);
+  abuelo.rect(45, 40, 5, 5);
+  abuelo.rect(45, 45, 5, 5);
+  abuelo.rect(45, 50, 5, 5);
+  abuelo.rect(45, 50, 5, 5);
+  abuelo.rect(45, 55, 5, 5);
+  abuelo.rect(45, 60, 5, 5);
+  abuelo.rect(45, 65, 5, 5);
+  abuelo.rect(45, 70, 5, 5);
+  abuelo.endDraw();
+}
